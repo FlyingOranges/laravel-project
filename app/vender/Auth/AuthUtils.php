@@ -27,6 +27,18 @@ class AuthUtils
     }
 
     /**
+     * Tag 实现更新用户信息
+     *
+     * Users Flying Oranges
+     * CreateTime 2018/12/25
+     * @param object $user
+     */
+    public static function saveUser(object $user)
+    {
+        self::login($user);
+    }
+
+    /**
      * Tag 实现退出登录
      *
      * Users Flying Oranges
