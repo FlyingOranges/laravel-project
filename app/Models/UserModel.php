@@ -15,7 +15,7 @@ class UserModel extends Model
     protected $table = 'users';
     protected $primaryKey = 'id';
 
-    protected $fillable = ['nickname', 'username', 'password'];
+    protected $fillable = ['nickname', 'username', 'password', 'token'];
 
     protected $dateFormat = 'U';
 
@@ -43,7 +43,7 @@ class UserModel extends Model
         $result = RedisUtils::remember('USER_LOGIN_USERNAME_' . $username,
             60 * 24, function () use ($username) {
                 return $this->where(['username' => $username])
-                    ->first(['id', 'username', 'password', 'nickname', 'status']);
+                    ->first(['id', 'username', 'password', 'nickname', 'token', 'status']);
             });
 
         return $result;

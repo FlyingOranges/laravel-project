@@ -12,7 +12,6 @@ class LoginRequest extends FormRequest
         'login' => [
             'username' => 'required',
             'password' => 'required',
-            'code' => 'required'
         ],
 
     ];
@@ -52,7 +51,6 @@ class LoginRequest extends FormRequest
         return [
             'username.required' => '请输入您的账号',
             'password.required' => '请输入您的密码',
-            'code.required' => '请输入验证码'
         ];
     }
 

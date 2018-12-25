@@ -16,6 +16,74 @@ use Illuminate\Support\Facades\Redis;
 class RedisUtils
 {
     /**
+     * Tag 设置有期限redis
+     *
+     * Users Flying Oranges
+     * CreateTime 2018/12/25
+     * @param string $key
+     * @param int $minutes
+     * @param $value
+     */
+    public static function setRedis(string $key, int $minutes, $value)
+    {
+        Redis::setex($key, $minutes, json_encode($value));
+    }
+
+    /**
+     * Tag 设置无期限redis
+     *
+     * Users Flying Oranges
+     * CreateTime 2018/12/25
+     * @param string $key
+     * @param $value
+     */
+    public static function setRedisUnlimited(string $key, $value)
+    {
+        Redis::set($key, json_encode($value));
+    }
+
+    /**
+     * Tag 判断是否redis是否存在
+     *
+     * Users Flying Oranges
+     * CreateTime 2018/12/25
+     * @param string $key
+     * @return mixed
+     */
+    public static function existsRedis(string $key)
+    {
+        return Redis::exists($key);
+    }
+
+    /**
+     * Tag 删除指定的key
+     *
+     * Users Flying Oranges
+     * CreateTime 2018/12/25
+     * @param string $key
+     * @return mixed
+     */
+    public static function delRedis(string $key)
+    {
+        return Redis::del($key);
+    }
+
+    /**
+     * Tag 获取redis信息
+     *
+     * Users Flying Oranges
+     * CreateTime 2018/12/25
+     * @param string $key
+     * @return string
+     */
+    public static function getRedis(string $key)
+    {
+        $value = Redis::get($key);
+
+        return json_encode($value, true);
+    }
+
+    /**
      * Tag redis操作model数据方法
      *
      * Users Flying Oranges

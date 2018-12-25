@@ -26,6 +26,6 @@ class LoginController extends Controller
      */
     public function login(LoginRequest $loginRequest)
     {
-        return $this->authServer->login($loginRequest->only(['username', 'password', 'code']));
+        return $this->authServer->login($loginRequest->only(['username', 'password']));
     }
 }

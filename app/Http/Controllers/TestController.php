@@ -2,17 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\UserModel;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redis;
+use Illuminate\Support\Facades\Auth;
 
 class TestController extends Controller
 {
     public function test()
     {
-        $UserModel = new UserModel();
+        $token = request()->header('Authorization');
 
-        $result = $UserModel->login('xiaofeng');
-        dd($result);
+        dd($token);
     }
 }

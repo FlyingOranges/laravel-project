@@ -39,7 +39,7 @@
         "classmap": [
             "database/seeds",
             "database/factories",
-            "app/vender/Redis"
+            "app/vender"
         ],
         "files": [
             "app/helps.php"
