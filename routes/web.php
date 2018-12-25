@@ -17,6 +17,8 @@ Route::get('/', function () {
 
 Route::group([], function ($router) {
 
+    $router->get('test', 'TestController@test');
+
     //Api模块
     $router->group(['namespace' => 'Api'], function ($router) {
         $router->post('/register', 'RegisteredController@register')->name('api.register');

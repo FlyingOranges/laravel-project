@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
+use App\vender\Redis\RedisUtils;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Facades\Cache;
 
 class UserModel extends Model
 {
@@ -27,23 +27,24 @@ class UserModel extends Model
     //判断当前账号是否可用
     public function repeatUsername(string $username)
     {
-        $result = Cache::remember('USER_NAME_REPEAT_STRING_' . $username, 60 * 24 * 30, function () use ($username) {
-            $result = $this->where('username', $username)->first(['id']);
-            if ($result) {
-                return false;
-            }
+        $result = RedisUtils::remember('USER_NAME_REPEAT_STRING_' . $username,
+            60 * 24 * 30, function () use ($username) {
+                $result = $this->where('username', $username)->first(['id']);
 
-            return true;
-        });
+                return $result ? true : false;
+            });
 
         return $result;
     }
 
+    //获取登录信息
     public function login(string $username)
     {
-
-        $result = $this->where(['username' => $username])
-            ->first(['id', 'username', 'password', 'nickname', 'status']);
+        $result = RedisUtils::remember('USER_LOGIN_USERNAME_' . $username,
+            60 * 24, function () use ($username) {
+                return $this->where(['username' => $username])
+                    ->first(['id', 'username', 'password', 'nickname', 'status']);
+            });
 
         return $result;
     }
