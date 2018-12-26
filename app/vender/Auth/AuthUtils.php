@@ -21,7 +21,7 @@ class AuthUtils
      * CreateTime 2018/12/25
      * @param object $user
      */
-    public static function login(object $user)
+    public static function login($user)
     {
         RedisUtils::setRedis($user->token, 60 * 24 * 30, $user);
     }
@@ -33,7 +33,7 @@ class AuthUtils
      * CreateTime 2018/12/25
      * @param object $user
      */
-    public static function saveUser(object $user)
+    public static function saveUser($user)
     {
         self::login($user);
     }
