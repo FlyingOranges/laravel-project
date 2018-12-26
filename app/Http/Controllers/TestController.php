@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use function GuzzleHttp\Psr7\str;
 use Illuminate\Support\Facades\Auth;
 
 class TestController extends Controller
@@ -10,6 +11,6 @@ class TestController extends Controller
     {
         $token = request()->header('Authorization');
 
-        dd($token);
+        dd(strlen(bcrypt($token)));
     }
 }

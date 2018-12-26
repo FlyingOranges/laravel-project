@@ -37,6 +37,8 @@ class AuthServiceImpl implements AuthService
 
         $user['password'] = md5($user['password']);
 
+        $user['token'] = bcrypt($user['nickname'] . env('APP_NAME') . $user['username']);
+
         return $UserModel->createUser($user);
     }
 

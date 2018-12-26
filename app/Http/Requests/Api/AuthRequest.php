@@ -10,8 +10,9 @@ class AuthRequest extends FormRequest
 {
     private $rules = [
         'register' => [
-            'username' => 'required',
-            'password' => 'required'
+            'username' => 'required|max:11|min:11',
+            'password' => 'required|max:18|min:8|confirmed',
+            'password_confirmation' => 'required|max:18|min:8',
         ],
     ];
 
@@ -49,7 +50,13 @@ class AuthRequest extends FormRequest
     {
         return [
             'username.required' => '请填写您的注册账号',
-            'password.required' => '请填写您的注册密码'
+            'username.max' => '注册账号位数长度溢出',
+            'username.min' => '注册账号位数长度不足',
+            'password.required' => '请填写您的注册密码',
+            'password.max' => '密码长度超出最大值(18位)',
+            'password.min' => '密码长度不足最小值(8位)',
+            'password.confirmed' => '密码与确认密码不匹配',
+            'password_confirmation.required' => '请填写确认密码'
         ];
     }
 

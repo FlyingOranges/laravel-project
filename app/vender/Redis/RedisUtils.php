@@ -79,6 +79,9 @@ class RedisUtils
     public static function getRedis(string $key)
     {
         $value = Redis::get($key);
+        if (is_null($value)) {
+            return null;
+        }
 
         return json_encode($value, true);
     }

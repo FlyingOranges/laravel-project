@@ -27,14 +27,24 @@ class UserModel extends Model
     //判断当前账号是否可用
     public function repeatUsername(string $username)
     {
-        $result = RedisUtils::remember('USER_NAME_REPEAT_STRING_' . $username,
-            60 * 24 * 30, function () use ($username) {
-                $result = $this->where('username', $username)->first(['id']);
+        $status = RedisUtils::getRedis('USER_NAME_REPEAT_STRING_' . $username);
 
-                return $result ? true : false;
-            });
+        if ($status and !is_null($status)) {
+            //如果能找到标示为真,则直接返回不可使用
+            $repeat = false;
+        } else {
+            //如果找不到到标示
+            $result = $this->where('username', $username)->first(['id']);
+            if ($result) {
+                RedisUtils::setRedisUnlimited('USER_NAME_REPEAT_STRING_' . $username, false);
+                $repeat = false;
+            } else {
+                RedisUtils::setRedisUnlimited('USER_NAME_REPEAT_STRING_' . $username, true);
+                $repeat = true;
+            }
+        }
 
-        return $result;
+        return $repeat;
     }
 
     //获取登录信息

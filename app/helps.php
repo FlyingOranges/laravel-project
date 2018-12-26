@@ -1,7 +1,7 @@
 <?php
 if (!function_exists('responseJson')) {
 
-    function responseJson(array $data, $message = 'success', $error_code = 0)
+    function responseJson($data, $message = 'success', $error_code = 0)
     {
         $json = (object)[
             'error_code' => $error_code,
