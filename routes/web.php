@@ -17,6 +17,7 @@ Route::get('/', function () {
 
 Route::group([], function ($router) {
 
+    //测试路由,用于测试使用(正式环境请注释)
     $router->get('test', 'TestController@test');
 
     //Api模块
@@ -25,7 +26,7 @@ Route::group([], function ($router) {
         $router->post('/login', 'LoginController@login')->name('api.login');
 
         //登录操作之后才能执行的操作
-        $router->group([''], function ($router) {
+        $router->group(['middleware' => 'login.token'], function ($router) {
 
         });
     });
