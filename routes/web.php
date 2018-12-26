@@ -23,6 +23,11 @@ Route::group([], function ($router) {
     $router->group(['namespace' => 'Api'], function ($router) {
         $router->post('/register', 'RegisteredController@register')->name('api.register');
         $router->post('/login', 'LoginController@login')->name('api.login');
+
+        //登录操作之后才能执行的操作
+        $router->group([''], function ($router) {
+
+        });
     });
 
 });
