@@ -12,7 +12,7 @@ class UserModel extends Model
 
     const STATUS_NORMAL = 1;
 
-    protected $table = 'users';
+    protected $table = 'member';
     protected $primaryKey = 'id';
 
     protected $fillable = ['nickname', 'username', 'password', 'token'];
