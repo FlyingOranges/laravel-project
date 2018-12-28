@@ -27,6 +27,10 @@ class AuthServiceImpl implements AuthService
      */
     public function register(array $user)
     {
+        //查询该账号发送的验证码是否正确
+        $codeState = $user['code'] == '1234' ? true : false;
+        throw_unless($codeState, ApiException::class, '您的验证码不正确');
+
         //初始设定用户昵称为账号
         $user['nickname'] = $user['username'];
         $UserModel = new UserModel();
@@ -36,7 +40,6 @@ class AuthServiceImpl implements AuthService
         throw_unless($repeatResult, ApiException::class, '该账户已被注册');
 
         $user['password'] = md5($user['password']);
-
         $user['token'] = bcrypt($user['nickname'] . env('APP_NAME') . $user['username']);
 
         return $UserModel->createUser($user);

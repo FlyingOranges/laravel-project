@@ -63,6 +63,9 @@ class Kernel extends HttpKernel
 
         //登录中间件
         'login.token' => \App\Http\Middleware\LoginTokenMiddleware::class,
+
+        //跨域中间件
+        'barryvdh.cors.handleCors' => \Barryvdh\Cors\HandleCors::class,
     ];
 
     /**

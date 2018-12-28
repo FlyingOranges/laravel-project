@@ -25,7 +25,7 @@ class RegisteredController extends Controller
      */
     public function register(AuthRequest $authRequest)
     {
-        $result = $this->authService->register($authRequest->only(['username', 'password']));
+        $result = $this->authService->register($authRequest->only(['username', 'password', 'code']));
         return responseJson($result, '注册成功');
     }
 }
