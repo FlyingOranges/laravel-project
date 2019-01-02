@@ -1,13 +1,4 @@
 <?php
-/**
- * Tag
- *
- * Created by PhpStorm.
- * User: Flying Oranges
- * Date: 2018/12/24
- * Time: 9:26 AM
- */
-
 namespace App\Http\Service\Impl;
 
 use App\Exceptions\ApiException;
