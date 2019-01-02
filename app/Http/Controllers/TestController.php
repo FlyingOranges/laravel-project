@@ -13,4 +13,9 @@ class TestController extends Controller
 
         dd(strlen(bcrypt($token)));
     }
+
+    public function index()
+    {
+        dd('小楼一夜听春雨');
+    }
 }

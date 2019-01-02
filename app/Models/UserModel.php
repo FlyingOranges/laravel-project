@@ -10,6 +10,7 @@ class UserModel extends Model
 {
     use SoftDeletes;
 
+    //默认状态
     const STATUS_NORMAL = 1;
 
     protected $table = 'member';
