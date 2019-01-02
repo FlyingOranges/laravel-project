@@ -10,7 +10,6 @@
 
 namespace App\Http\Service\Impl;
 
-
 use App\Exceptions\ApiException;
 use App\Http\Service\AuthService;
 use App\Models\UserModel;
@@ -78,6 +77,5 @@ class AuthServiceImpl implements AuthService
 
         return $userResult;
     }
-
 
 }
