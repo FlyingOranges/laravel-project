@@ -6,7 +6,7 @@ use App\vender\Redis\RedisUtils;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class UserModel extends Model
+class MemberModel extends Model
 {
     use SoftDeletes;
 

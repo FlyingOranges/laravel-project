@@ -12,6 +12,7 @@ namespace App\Http\Service\Impl;
 
 use App\Exceptions\ApiException;
 use App\Http\Service\AuthService;
+use App\Models\MemberModel;
 use App\Models\UserModel;
 use App\vender\Auth\AuthUtils;
 
@@ -32,16 +33,16 @@ class AuthServiceImpl implements AuthService
 
         //初始设定用户昵称为账号
         $user['nickname'] = $user['username'];
-        $UserModel = new UserModel();
+        $MemberModel = new MemberModel();
 
         //判断是否已有该账号
-        $repeatResult = $UserModel->repeatUsername($user['username']);
+        $repeatResult = $MemberModel->repeatUsername($user['username']);
         throw_unless($repeatResult, ApiException::class, '该账户已被注册');
 
         $user['password'] = md5($user['password']);
         $user['token'] = bcrypt($user['nickname'] . env('APP_NAME') . $user['username']);
 
-        return $UserModel->createUser($user);
+        return $MemberModel->createUser($user);
     }
 
     /**
@@ -56,10 +57,10 @@ class AuthServiceImpl implements AuthService
      */
     public function login(array $user)
     {
-        $UserModel = new UserModel();
+        $MemberModel = new MemberModel();
 
         //使用账号查询用户信息是否存在
-        $userResult = $UserModel->login($user['username']);
+        $userResult = $MemberModel->login($user['username']);
         throw_unless($userResult, ApiException::class, '没有该账户信息');
 
         //判断密码信息是否正确
@@ -67,7 +68,7 @@ class AuthServiceImpl implements AuthService
         throw_unless($passwordState, ApiException::class, '密码信息错误,请重新尝试');
 
         //判断账号是否是可登录状态
-        $usernameState = $userResult->status == $UserModel::STATUS_NORMAL ? true : false;
+        $usernameState = $userResult->status == $MemberModel::STATUS_NORMAL ? true : false;
         throw_unless($usernameState, ApiException::class, '账号处于不可登录状态');
 
         //如果有更多操作.....
